@@ -51,12 +51,15 @@ def main(argv):
         logging.info("...done")
         
         logging.info("Creating post...")
+        titleStyle = 'style="border: 2px solid #a1a1a1; padding: 5px 10px; background: #ddddff; border-radius: 10px;"'
+        linkStyle = 'style="border: 2px solid #a1a1a1; color: #ffffff; padding: 5px 5px; background: #0000ff; border-radius: 10px;"'
         post = WordPressPost()
-        post.title = "[Audio] " + myfile.artist + ", " + myfile.title
-        content = myfile.artist + "<br>"
-        content = content + myfile.title + '<br>'
-        content = content + myfile.comment + '<br>'
-        content = content + '<a href="' + response['url'] + '">Click to download</a>'
+        post.title = "<div " + titleStyle + "> [Audio] " + myfile.title + "</div>"
+        content = "<h2>" + myfile.artist + "</h2>"
+        content = content + "<p>" + myfile.title + '</p>'
+        if myfile.comment != "":
+            content = content + '<p>' + myfile.comment + '</p>'
+        content = content + '<a ' + linkStyle + ' href="' + response['url'] + '">Click to download</a>'
         post.content = content
         post.terms_names = {
             'category': ['Audio']
